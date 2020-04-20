@@ -3,12 +3,17 @@ import BurgerStack from './BurgerStack'
 import ClearBurger from './ClearBurger'
 
 
-function BurgerPane() {
-    
+function BurgerPane(props) {
+    return (
+        <div>
+            <BurgerStack stack={props.stack} />
+            <ClearBurger action={props.action} />
+        </div>
+    )
 }
 
 
 
 
 
-export default BurgerPane.js
+export default BurgerPane;

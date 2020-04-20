@@ -1,13 +1,10 @@
 import React, {useState} from 'react';
 import './App.css';
-import Ingredients from './Ingredients'
+import IngredientList from './IngredientList'
 import BurgerPane from './BurgerPane'
 
-
-
-
-function App(props) {
-  const [ingredient, setIngredient] = useState([{name: 'Kaiser Bun', color: 'saddlebrown'},
+let burgerSeed = [
+  {name: 'Kaiser Bun', color: 'saddlebrown'},
   {name: 'Sesame Bun', color: 'sandybrown'},
   {name: 'Gluten Free Bun', color: 'peru'},
   {name: 'Lettuce Wrap', color: 'olivedrab'},
@@ -18,17 +15,31 @@ function App(props) {
   {name: 'Lettuce', color: 'lawngreen'},
   {name: 'Tomato', color: 'tomato'},
   {name: 'Bacon', color: 'maroon'},
-  {name: 'Onion', color: 'lightyellow'}])
+  {name: 'Onion', color: 'lightyellow'}
+];
+
+
+function App() {
+  const [ingredients, setIngredients] = useState(burgerSeed);
+  const [stack, setStack] = useState([]);
+
+  function addToStack(e) {
+    let result = burgerSeed.filter(ingredient => ingredient.name === e.target.innerText);
+    console.log(result[0]);
+    setStack([result[0], ...stack])
+  }
+  
+  
+function clear(e) {
+    setStack([]);
+  }
   return (
     <div>
-      <ul>
-        <li>
-          <Ingredients />
-        </li>
-      </ul>
+      <IngredientList ingredients={ingredients} action={addToStack} />
+      <BurgerPane stack={stack} action={clear} />
     </div>
-    
   );
+  
 }
 
 export default App;
